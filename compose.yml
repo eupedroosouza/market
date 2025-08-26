@@ -1,0 +1,26 @@
+services:
+  mariadb:
+    image: mariadb:lts
+    networks:
+      - default
+    ports:
+      - "3306:3306"
+    environment:
+      MARIADB_ROOT_PASSWORD: no_password
+      MARIADB_DATABASE: market
+
+  pma:
+    image: phpmyadmin:latest
+    networks:
+      - default
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: mariadb
+      PMA_PORT: 3306
+      PMA_USER: root
+      PMA_PASSWORD: no_password
+
+networks:
+  default:
+    driver: bridge
